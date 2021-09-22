@@ -110,7 +110,7 @@ static const char* lept_parse_hex4(const char* p, unsigned* u) {
     return p;
 }
 
-static void lept_encode_utf8(lept_context* c, unsigned u) {
+static void lept_encode_utf8(lept_context* c, unsigned u) { //
     if (u <= 0x7F) 
         PUTC(c, u & 0xFF);
     else if (u <= 0x7FF) {
@@ -318,7 +318,7 @@ static int lept_parse_value(lept_context* c, lept_value* v) {
         case 'f':  return lept_parse_literal(c, v, "false", LEPT_FALSE);
         case 'n':  return lept_parse_literal(c, v, "null", LEPT_NULL);
         default:   return lept_parse_number(c, v);
-        case '"':  return lept_parse_string(c, v);
+        case '\"':  return lept_parse_string(c, v);
         case '[':  return lept_parse_array(c, v);
         case '{':  return lept_parse_object(c, v);
         case '\0': return LEPT_PARSE_EXPECT_VALUE;
@@ -348,6 +348,10 @@ int lept_parse(lept_value* v, const char* json) {
 
 static void lept_stringify_string(lept_context* c, const char* s, size_t len) {
     /* ... */
+	char * str = s;
+	char ch = *str;
+	PUTC(c, '\"');
+	
 }
 
 static void lept_stringify_value(lept_context* c, const lept_value* v) {
@@ -355,7 +359,7 @@ static void lept_stringify_value(lept_context* c, const lept_value* v) {
         case LEPT_NULL:   PUTS(c, "null",  4); break;
         case LEPT_FALSE:  PUTS(c, "false", 5); break;
         case LEPT_TRUE:   PUTS(c, "true",  4); break;
-        case LEPT_NUMBER: c->top -= 32 - sprintf(lept_context_push(c, 32), "%.17g", v->u.n); break;
+        case LEPT_NUMBER: c->top -= 32 - sprintf(lept_context_push(c, 32), "%.17g", v->u.n); break;//将double 转化为字符串
         case LEPT_STRING: lept_stringify_string(c, v->u.s.s, v->u.s.len); break;
         case LEPT_ARRAY:
             /* ... */

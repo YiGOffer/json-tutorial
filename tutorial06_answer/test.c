@@ -115,7 +115,7 @@ static void test_parse_number() {
     } while(0)
 
 static void test_parse_string() {
-    TEST_STRING("", "\"\"");
+    TEST_STRING("a", "\"a\"");
     TEST_STRING("Hello", "\"Hello\"");
     TEST_STRING("Hello\nWorld", "\"Hello\\nWorld\"");
     TEST_STRING("\" \\ / \b \f \n \r \t", "\"\\\" \\\\ \\/ \\b \\f \\n \\r \\t\"");

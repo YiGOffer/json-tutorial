@@ -131,7 +131,7 @@ static int lept_parse_string_raw(lept_context* c, char** str, size_t* len) {
     size_t head = c->top;
     unsigned u, u2;
     const char* p;
-    EXPECT(c, '\"');
+    EXPECT(c, '"');
     p = c->json;
     for (;;) {
         char ch = *p++;
